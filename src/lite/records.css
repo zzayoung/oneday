@@ -1,0 +1,50 @@
+/* OneDay 1.8: compact creation controls and a library for every record. */
+.creation-controls-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:12px;margin-bottom:16px;flex-shrink:0;min-width:0}
+.record-category-control{min-width:0;padding:12px 14px;border:1px solid var(--line);background:var(--soft2);border-radius:14px}
+.record-category-label{display:flex;align-items:center;font-size:13px;margin-bottom:8px;color:var(--muted)}
+.record-category-label strong{font-weight:600;color:var(--text)}
+.record-category-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.record-category-options button{min-width:0;min-height:36px;padding:5px 4px;border-radius:9px;font-size:13px;color:var(--muted);white-space:nowrap}
+.record-category-options button.on{background:var(--green-soft);color:var(--green);font-weight:700;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--green) 22%,transparent)}
+.creation-controls-row .task-duration-control{min-width:0;padding:12px 14px;border-radius:14px}
+.creation-controls-row .task-duration-control label{flex-wrap:wrap;gap:2px 6px;font-size:13px;line-height:18px}
+.creation-controls-row .task-duration-control output{font-size:14px;white-space:nowrap}
+.creation-controls-row .task-duration-control input[type=range]{min-width:0;max-width:100%;height:28px;margin:3px 0 0}
+.creation-controls-row .duration-scale{font-size:10px;line-height:14px}
+.creation-sheet:not([data-category="待办"]) .record-category-control{grid-column:1/-1}
+.creation-sheet .dialog-header h2{font-size:19px;letter-spacing:-.3px}
+.creation-sheet .dialog-footer .button.primary{min-width:120px;font-size:15px}
+.records-intro{display:flex;align-items:center;gap:14px;margin:6px 0 18px}
+.records-intro .section-label{margin:0;font-size:15px;color:var(--ink)}
+.records-intro p{font-size:13px;color:var(--muted)}
+.records-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;padding-bottom:20px}
+.record-card{display:flex;flex-direction:column;padding:20px;border-radius:18px;min-width:0;min-height:230px;background:var(--surface);border-color:var(--line);box-shadow:0 4px 18px color-mix(in srgb,var(--ink) 3%,transparent)}
+.record-card:hover{border-color:var(--line2)}
+.record-card .note-card-header{gap:8px;margin-bottom:14px;color:var(--muted)}
+.record-card .note-card-header .pill{margin-left:auto;font-size:10px;padding:3px 7px}
+.record-preview{max-height:240px;overflow:hidden;flex:1;min-height:110px;position:relative;word-break:break-word}
+.record-preview :is(h1,h2,h3,h4){font-size:18px;font-weight:650;letter-spacing:-.3px}
+.record-preview :is(img,video){max-height:160px;object-fit:cover;border-radius:10px}
+.record-preview .md-check:disabled{opacity:1;cursor:default}
+.record-card .note-card-footer{border-top:1px solid var(--line);margin-top:14px;padding-top:12px;gap:8px}
+.record-open{margin-left:auto;color:var(--green)}
+.notes-filter{overflow-x:auto;max-width:100%;scrollbar-width:none;padding:2px;white-space:nowrap}
+.notes-filter button{flex-shrink:0;min-height:36px;font-size:13px}
+.notes-mode .period-controls{flex:1;overflow:hidden}
+.notes-mode .toolbar-trailing{flex:none}
+@media(max-width:640px){
+ .creation-controls-row{gap:8px;margin-bottom:12px}
+ .record-category-control,.creation-controls-row .task-duration-control{padding:10px 8px;border-radius:12px}
+ .record-category-label{font-size:12px;margin-bottom:6px}
+ .record-category-options{gap:2px}
+ .record-category-options button{padding:6px 2px;font-size:12px}
+ .creation-controls-row .task-duration-control label{font-size:12px}
+ .creation-controls-row .task-duration-control output{font-size:13px}
+ .creation-controls-row .duration-scale{font-size:9px}
+ .records-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+ .record-card{padding:16px;min-height:210px}
+ .records-intro{display:block;margin-bottom:12px}.records-intro p{margin-top:5px;font-size:12px}
+ .notes-mode .toolbar-trailing{display:none}
+ .top-view-switch button{padding:7px 10px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.record-category-options button{transition:none}}

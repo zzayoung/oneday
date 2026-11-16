@@ -1,0 +1,6 @@
+/* Keyboard format chooser and compact, always-visible shortcut guidance. */
+.live-md-menu { display: flex; flex-wrap: wrap; gap: .25rem; padding: .45rem; margin: .35rem 0; border: 1px solid var(--line, #d7dce3); border-radius: .55rem; background: var(--surface, #fff); }
+.live-md-menu[hidden] { display: none; }
+.live-md-menu [role="option"] { padding: .3rem .5rem; border-radius: .35rem; font-size: .85rem; }
+.live-md-menu [aria-selected="true"] { background: var(--accent, #4169e1); color: #fff; }
+.live-md-help { margin: .25rem 0; color: var(--muted, #667085); font-size: .75rem; line-height: 1.4; }

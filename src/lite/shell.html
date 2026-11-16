@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f7f8f5">
+<title>OneDay | 个人待办、日历与笔记</title><meta name="description" content="OneDay 是适配桌面与手机浏览器的个人待办、日历和笔记工作空间。">
+<style>/*__LITE_CSS__*/</style>
+</head>
+<body>
+<div id="app" class="app">
+ <header class="topbar">
+  <a class="brand" href="#" data-act="home" aria-label="OneDay 首页"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" width="28" height="28" fill="none"><path d="M7 22h18M10 18a6 6 0 0 1 12 0M16 5v3M5 12l3 2M27 12l-3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span>OneDay<small>LITE</small></span></a>
+  <div id="viewSwitch" class="segmented top-view-switch" aria-label="任务视图"><button class="on" data-act="view" data-view="calendar">日历</button><button data-act="view" data-view="board">看板</button><button data-act="view" data-view="stats">统计</button></div>
+  <div id="recordSwitch" class="segmented top-view-switch top-record-switch" aria-label="记录分类" hidden></div>
+  <nav id="desktopNav" class="main-nav legacy-nav" aria-label="主导航" hidden><button data-act="tab" data-tab="tasks" class="on">任务</button><button data-act="tab" data-tab="notes">记录</button></nav>
+  <div class="top-actions"><button id="syncButton" class="sync-button" data-act="settings" aria-label="保存与连接状态"><i></i><span id="syncLabel">连接中</span></button><button class="icon-button" data-act="search" title="搜索（Ctrl / ⌘ K）" aria-label="搜索任务和记录" data-icon="search"></button><button class="icon-button fullscreen-toggle" data-act="fullscreen" title="全屏" aria-label="全屏" aria-pressed="false" data-icon="fullscreen"></button><button class="icon-button" data-act="settings" title="数据与设置" aria-label="数据与设置" data-icon="settings"></button></div>
+ </header>
+ <div id="connectionNotice" class="connection-notice" hidden role="status"></div>
+ <main class="workspace">
+  <section class="workspace-heading" aria-hidden="true"><div><div class="eyebrow" id="workspaceEyebrow"></div><h1 id="workspaceTitle"></h1></div><div id="quietSummary" class="quiet-summary"></div></section>
+  <section class="capture-wrap" aria-label="快速记录">
+   <form id="captureForm" class="quick-capture"><button type="button" class="capture-type" data-act="capture-type" id="captureType" aria-label="切换任务或笔记">任务<span data-icon="chevronDown"></span></button><textarea id="captureInput" rows="1" placeholder="记下一件要做的事…" aria-label="快速记录内容" maxlength="20000"></textarea><span class="capture-shortcut" id="captureShortcut">↵</span><button type="submit" class="capture-submit" id="captureSubmit" title="保存记录" aria-label="保存快速记录" data-icon="plus"></button></form>
+   <div id="capturePreview" class="capture-preview" hidden></div>
+  </section>
+  <div class="view-toolbar"><div id="periodControls" class="period-controls"></div><div id="toolbarTrailing" class="toolbar-trailing"></div></div>
+  <div id="mainView" class="main-view" tabindex="-1"><div class="loading-state"><span class="loader"></span><p>正在读取你的空间…</p></div></div>
+  <footer class="workspace-footer"><span id="environmentLabel">私人的空间，从容地记录。</span><button data-act="help">快捷操作 <kbd>?</kbd></button></footer>
+ </main>
+ <nav id="mobileNav" class="mobile-nav universal-nav" aria-label="主导航"><button data-act="tab" data-tab="tasks" class="on"><span data-icon="calendar"></span><span>任务</span></button><button class="mobile-create" data-act="global-create" aria-label="添加记录" title="新建（/ 或 +）" data-icon="plus"></button><button data-act="tab" data-tab="notes"><span data-icon="note"></span><span>记录</span></button></nav>
+</div>
+<div id="sheetRoot"></div><div id="modalRoot"></div><div id="toastRoot" aria-live="polite"></div>
+<div hidden aria-hidden="true"><span data-sp-bindable="database" data-sp-database-id="oneday-tasks"></span><span data-sp-bindable="database" data-sp-database-id="oneday-logs"></span><span data-sp-bindable="database" data-sp-database-id="oneday-tags"></span><span data-sp-bindable="database" data-sp-database-id="oneday-links"></span><span data-sp-bindable="database" data-sp-database-id="oneday-notes"></span><span data-sp-bindable="database" data-sp-database-id="oneday-sets"></span><span data-sp-bindable="database" data-sp-database-id="oneday-cal"></span></div>
+<!--__LOCAL_ADAPTER__-->
+<script>/*__SHARED_CORE__*/</script><script>/*__LITE_CORE__*/</script><script>/*__LITE_STORE__*/</script><script>/*__LITE_ATTACHMENTS__*/</script><script>/*__LITE_EDITOR__*/</script><script>/*__LITE_THEMES__*/</script><script>/*__LITE_UI__*/</script><script>/*__LITE_VIEWS__*/</script><script>/*__LITE_BOARD__*/</script><script>/*__LITE_DIALOGS__*/</script><script>/*__LITE_TIMELINE__*/</script><script>/*__LITE_APP__*/</script>
+</body>
+</html>

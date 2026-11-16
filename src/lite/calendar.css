@@ -1,0 +1,32 @@
+/* 1.9 calendar: retain seven columns while giving the current week room. */
+.calendar-weighted{grid-template-rows:var(--calendar-rows)!important;grid-auto-rows:minmax(54px,1fr)!important}
+.calendar-weighted .day{min-height:0}
+.calendar-weighted .day.current-week{min-height:0;border-color:color-mix(in srgb,var(--green) 32%,var(--calendar-border))!important}
+.calendar-weighted .day.past:not(.selected):not(.today){filter:saturate(.55);background:color-mix(in srgb,var(--calendar-card) 88%,var(--muted))!important}
+.calendar-weighted .day.past:not(.selected):not(.today) .day-number{color:var(--muted);opacity:.72}
+.calendar-weighted .day.future:not(.selected){background:color-mix(in srgb,var(--calendar-card) 82%,var(--green-soft))}
+.calendar-weighted .calendar-lunar{color:var(--muted);font-size:10px;line-height:1.25;min-height:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 3px 3px}
+.calendar-weighted .calendar-today-icon{display:inline-flex;align-items:center;color:var(--green);flex:none}
+.calendar-weighted .cal-task{max-width:100%}
+.calendar-weighted .calendar-marker-compact,.calendar-weighted .calendar-holiday-caption{display:none}
+@media(max-width:640px){
+ .calendar-weighted{grid-template-rows:var(--calendar-rows)!important;grid-auto-rows:minmax(52px,1fr)!important}
+ .calendar-weighted .day{min-height:0}
+ .calendar-weighted .day.current-week{min-height:0}
+ .calendar-weighted .day-heading{justify-content:flex-end!important;height:25px;min-height:25px}
+ .calendar-weighted .day-marker{position:static;max-width:none;flex:none;font-size:10px;line-height:1;padding:2px;overflow:visible}
+ .calendar-weighted .calendar-marker-full{display:none}
+ .calendar-weighted .calendar-marker-compact{display:inline}
+ .calendar-weighted .day-number{margin-left:auto;margin-right:0;width:21px;height:21px}
+ .calendar-weighted .calendar-today-icon{position:absolute;left:1px;bottom:-11px}
+ .calendar-weighted .calendar-today-icon svg{width:10px;height:10px}
+ .calendar-weighted .today .calendar-lunar{margin-left:10px}
+ .calendar-weighted .calendar-lunar{font-size:9px;text-align:center;margin:0 0 2px}
+ .calendar-weighted .calendar-holiday-caption{display:block;font-size:9px;line-height:1.2;text-align:center;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .calendar-weighted .current-week .cal-task{display:flex;align-items:flex-start;font-size:10px;line-height:1.2;padding:2px;margin-bottom:2px;gap:0}
+ .calendar-weighted .current-week .cal-task .status-dot{display:none}
+ .calendar-weighted .current-week .cal-task span.task-name{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;white-space:normal;overflow-wrap:anywhere;overflow:hidden}
+ .calendar-weighted .current-week .cal-task.done{opacity:.8}
+ .calendar-weighted .current-week .cal-more{display:block;font-size:9px;padding:1px 2px}
+ .calendar-weighted .current-week .day-dots{display:none}
+}

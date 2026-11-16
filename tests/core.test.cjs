@@ -1,0 +1,37 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const source = path.join(__dirname, '../src/core.js');
+const C = fs.existsSync(source) ? require(source) : {};
+test('core module exists',()=>assert.equal(typeof C.parseCapture,'function'));
+test('capture recognizes tomorrow, time, duration, priority and tags',()=>{
+ const x=C.parseCapture('明天 15:00 整理产品方案 45分钟 !高 #工作','2026-09-21');
+ assert.equal(x.title,'整理产品方案');assert.equal(x.date,'2026-09-22');assert.equal(x.start,'15:00');assert.equal(x.end,'15:45');assert.equal(x.priority,'高');assert.deepEqual(x.tags,['工作']);
+});
+test('plain capture stays unscheduled',()=>assert.equal(C.parseCapture('想到一个新点子','2026-09-21').date,''));
+test('next Monday means next calendar week',()=>assert.equal(C.parseCapture('下周一 10:00 复盘','2026-09-21').date,'2026-09-28'));
+test('Chinese afternoon parsing',()=>assert.equal(C.parseCapture('明天下午3点半 联系朋友','2026-09-21').start,'15:30'));
+test('invalid clock rejected',()=>assert.ok(C.parseCapture('明天 25:90 任务','2026-09-21').error));
+test('invalid date rejected',()=>assert.ok(C.parseCapture('2026-02-31 任务','2026-09-21').error));
+test('duration crosses midnight correctly',()=>{let x=C.parseCapture('今天 23:30 阅读 90分钟','2026-09-21');assert.equal(x.endDate,'2026-09-22');assert.equal(x.end,'01:00')});
+test('priority only cannot become empty task',()=>assert.ok(C.parseCapture('!高 #工作','2026-09-21').error));
+test('duplicate tags deduplicated',()=>assert.deepEqual(C.parseCapture('测试 #工作 #工作','2026-09-21').tags,['工作']));
+test('unrecognized repeat text not silently a recurrence',()=>assert.ok(C.parseCapture('每周一 阅读','2026-09-21').warnings.length));
+test('safe links reject javascript, data html and entity protocols',()=>{
+ for (const s of ['javascript:alert(1)','JaVaScRiPt:alert(1)',' java\nscript:alert(1)','data:text/html,hello','javascript&#58;alert(1)','//evil.test']) assert.equal(C.safeURL(s), '');
+});
+test('safe links permit web and mailto',()=>{assert.equal(C.safeURL('https://example.com/a?q=1'),'https://example.com/a?q=1');assert.equal(C.safeURL('mailto:a@example.com'),'mailto:a@example.com')});
+test('images allow raster data but not SVG',()=>{assert.ok(C.safeURL('data:image/png;base64,AAAA',true));assert.equal(C.safeURL('data:image/svg+xml;base64,AAAA',true),'')});
+test('date edits preserve precise wall time',()=>assert.equal(C.planDate('2026-09-21','2026-09-20T14:15:00Z',false),'2026-09-21T14:15:00Z'));
+test('datetime-local preserves clock, no timezone conversion',()=>assert.equal(C.planDate('2026-09-21T14:15','',false),'2026-09-21T14:15:00Z'));
+test('empty date explicitly clears',()=>assert.equal(C.planDate('','2026-09-20T14:15:00Z',false),null));
+test('field patch does not resubmit unchanged dates',()=>assert.deepEqual(C.diffProps({'任务标题':{text:'新标题'},'计划开始时间':{date:'2026-09-21T14:15:00Z'}},{'任务标题':'旧标题','计划开始时间':'2026-09-21T14:15:00Z'}),{'任务标题':{text:'新标题'}}));
+test('interval union avoids double-counting overlap',()=>{let x=C.intervalStats([[540,600],[570,660],[720,750]]);assert.equal(x.busy,150);assert.equal(x.overlap,30);assert.equal(x.longestGap,690)});
+test('empty intervals valid',()=>assert.equal(C.intervalStats([]).busy,0));
+test('CSV preserves multiline, commas, quotes, unicode',()=>{let rows=[['标题','详情'],['一个任务','第一行,引号"\n第二行']];assert.deepEqual(C.parseCSV(C.csv(rows,false)),rows)});
+test('CSV rejects unclosed quotation',()=>assert.throws(()=>C.parseCSV('a,b\n"oops,x'),/引号/));
+test('CSV escapes spreadsheet formulas',()=>assert.ok(C.csv([['=1+1','+cmd','@SUM(A1)','-1']],true).includes("'=1+1")));
+test('descendant traversal handles nested levels and cycle',()=>{let rows=[{_id:'a','父任务ID':''},{_id:'b','父任务ID':'a'},{_id:'c','父任务ID':'b'},{_id:'a','父任务ID':'c'}];assert.deepEqual(C.descendants('a',rows),['b','c'])});
+test('focus remaining uses elapsed wall time not tick count',()=>assert.equal(C.remaining({running:true,remaining:1500,startedAt:100000},160000),1440));
+test('paused timer freezes',()=>assert.equal(C.remaining({running:false,remaining:320,startedAt:0},999999),320));

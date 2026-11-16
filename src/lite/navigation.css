@@ -1,0 +1,10 @@
+.swipe-active{position:relative;overflow-x:hidden;overflow-anchor:none}.swipe-current{will-change:transform}.swipe-incoming{position:absolute;left:0;right:0;overflow:hidden;pointer-events:none;will-change:transform}
+/* Only surfaces without horizontal scrolling claim touch navigation. */
+#viewSwitch,.day,.record-card-header,.record-card .note-card-header,.record-preview p,.records-intro,.report-heading{touch-action:pan-y}
+.record-card[role=button]{cursor:pointer}.record-card[role=button]:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+#recordSwitch{max-width:min(58vw,700px);overflow-x:auto;scrollbar-width:none}#recordSwitch button{display:inline-flex;gap:5px;align-items:center;flex:none}
+@media(max-width:640px){
+ .notes-mode .topbar{height:104px;padding:0 10px 46px}
+ .notes-mode #recordSwitch{position:absolute;left:10px;right:10px;top:auto;bottom:6px;transform:none;width:auto;max-width:none}
+ .notes-mode .view-toolbar{display:none}
+}
