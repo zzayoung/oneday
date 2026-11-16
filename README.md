@@ -48,3 +48,7 @@ JavaScript, HTML and CSS for the workspace; a Vinext/Cloudflare Worker wrapper a
 No project license has been specified. Do not assume permission to reuse or redistribute the project beyond applicable law; third-party components retain their own licenses.
 
 The legacy WorkBuddy table identifiers in this snapshot are generic placeholders. An independent WorkBuddy integration requires mapping them to your own tables; do not use another person's identifiers.
+
+### Oil UI branch
+
+This branch builds a static, local-only comparison. With Python 3 and Node.js on your PATH, run `python3 tools/build_oil_lab.py`, then serve `dist/` with a local static HTTP server. Its `baseline.html` and Oil interface use separate browser-local scopes. It does not use the Sites server or sync data between devices. The original D1 migrations are retained under `docs/original/oil-lab-db-migrations/` for reference; the main-branch server migration test is not applicable to this static build.

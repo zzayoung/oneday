@@ -46,3 +46,7 @@ node --test tests/core.test.cjs tests/lite/*.test.cjs tests/cloud/*.cjs tests/cl
 项目尚未指定许可证；除适用法律允许的范围外，请勿假定可以复用或再分发。第三方组件仍遵循各自的许可证。
 
 快照中的旧版 WorkBuddy 表标识已替换为通用占位符。独立接入 WorkBuddy 时须映射到自己的表，不要使用他人的标识。
+
+### Oil UI 分支
+
+本分支构建仅使用本地存储的静态对比页。安装 Python 3 和 Node.js 后运行 `python3 tools/build_oil_lab.py`，再用本地静态 HTTP 服务打开 `dist/`。`baseline.html` 与 Oil 界面使用不同的浏览器本地作用域，不使用 Sites 服务端，也不提供跨设备同步。原 D1 迁移文件保留在 `docs/original/oil-lab-db-migrations/` 供参考；主线服务端迁移测试不适用于此静态构建。

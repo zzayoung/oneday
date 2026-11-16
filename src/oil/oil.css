@@ -1,0 +1,357 @@
+/* Oil UI / Time Index. Scoped to the isolated branch; all existing themes remain available. */
+html[data-oil][data-theme="oil-index"]{
+ --bg:#f4f4ef;--surface:#fff;--soft:#ebeee7;--soft2:#f7f8f3;
+ --ink:#222b27;--text:#46534b;--muted:#68766c;--line:#dfe4da;--line2:#cbd4c7;
+ --green:#28584b;--green-soft:#e5eee6;--warm:#9b642b;--warm-soft:#f5eddf;
+ --red:#af4e36;--red-soft:#f8ebe6;--accent:#28584b;
+ --calendar-card:#fff;--calendar-border:#dfe4da;--calendar-radius:0px;--calendar-shadow:none;
+ --sheet-material:#fff;--day-accent:#28584b;--reflection-color:transparent;
+ --shadow:0 20px 80px #202b2724;color-scheme:light;
+}
+html[data-oil] body{background:var(--bg);font-size:15px}
+html[data-oil] .app{max-width:1800px}
+html[data-oil] .topbar{height:72px;padding:0 28px;gap:18px;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:none}
+html[data-oil] .brand{font-size:22px;gap:9px;letter-spacing:-.6px}
+html[data-oil] .brand-symbol{width:34px;height:34px;background:var(--green);border:0;border-radius:10px;box-shadow:none}
+html[data-oil] .brand small{font-size:9px;letter-spacing:1.1px;top:1px}
+html[data-oil] .top-view-switch{height:40px;border:0;padding:3px;background:var(--soft2);border-radius:8px}
+html[data-oil] #viewSwitch{width:240px;gap:0;isolation:isolate}
+html[data-oil] #viewSwitch:before{content:"";position:absolute;z-index:-1;left:3px;top:3px;width:78px;height:34px;border-radius:6px;background:var(--green);transform:translateX(calc(var(--oil-tab-index,0)*78px));transition:transform 200ms cubic-bezier(.2,.8,.2,1)}
+html[data-oil] #viewSwitch button{width:78px;min-height:34px;padding:0;font-size:14px;border-radius:6px;background:none;box-shadow:none}
+html[data-oil] #viewSwitch button.on{color:var(--surface);font-weight:650}
+html[data-oil] #recordSwitch{max-width:52vw;gap:1px}
+html[data-oil] #recordSwitch button{min-height:34px;padding:0 12px;font-size:13px}
+html[data-oil] .top-actions{gap:3px}
+html[data-oil] .top-actions .icon-button{width:38px;height:38px;border-radius:7px}
+html[data-oil] .workspace{padding:18px 28px 18px}
+html[data-oil] .view-toolbar{height:48px;min-height:48px;margin-bottom:14px;gap:14px}
+html[data-oil] .month-nav{gap:7px}
+html[data-oil] .month-nav .month-title{font-size:26px;font-weight:650;letter-spacing:-.8px;margin:0 8px}
+html[data-oil] .month-nav .month-title .year{display:inline;font-size:14px;font-weight:450;margin-right:10px;color:var(--muted);letter-spacing:0}
+html[data-oil] .period-controls .icon-button.small{width:34px;height:34px;border:1px solid var(--line);background:var(--surface)}
+html[data-oil] .compact-today{display:inline-flex;border:1px solid var(--line);background:var(--surface);font-size:13px;margin-left:4px}
+html[data-oil] .toolbar-trailing .text-button{font-size:13px;min-height:36px}
+html[data-oil] .main-view{overflow:auto;padding:0;scrollbar-gutter:stable}
+html[data-oil] .oil-calendar-layout{display:grid!important;grid-template-columns:minmax(0,1fr) 320px;gap:24px;height:100%;min-height:600px}
+html[data-oil] .calendar-main{background:var(--surface)!important;border:1px solid var(--line)!important;border-radius:12px;overflow:hidden;padding:0;box-shadow:none!important}
+html[data-oil] .calendar-reflection{display:none}
+html[data-oil] .weekdays{background:var(--surface);gap:0;border-bottom:1px solid var(--line);font-size:12px;font-weight:500}
+html[data-oil] .weekdays span{text-align:center;padding:13px 0}
+html[data-oil] .month-grid{padding:0!important;gap:0!important;overflow:hidden;grid-template-rows:var(--calendar-rows)!important}
+html[data-oil] .calendar-weighted .day{min-height:0;padding:8px 6px!important;border:0!important;border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;filter:none!important;background:var(--surface)!important;opacity:1;transition:background-color 140ms;transform:none!important}
+html[data-oil] .calendar-weighted .day:nth-child(7n){border-right:0!important}
+html[data-oil] .calendar-weighted .day.other{background:var(--soft2)!important}
+html[data-oil] .calendar-weighted .day.past .day-number{color:var(--muted);opacity:1}
+html[data-oil] .calendar-weighted .day.current-week{background:color-mix(in srgb,var(--green-soft) 44%,var(--surface))!important}
+html[data-oil] .calendar-weighted .day.selected{box-shadow:inset 0 0 0 1.5px var(--green)!important}
+html[data-oil] .calendar-weighted .day.today{background:var(--surface)!important}
+html[data-oil] .calendar-weighted .day:hover{background:var(--green-soft)!important}
+html[data-oil] .day-heading{min-height:30px;height:30px;justify-content:flex-end!important;gap:4px;margin:0 1px 2px}
+html[data-oil] .day-number{font-size:15px;width:28px;height:28px;border-radius:7px;font-weight:550}
+html[data-oil] .day.today .day-number{background:var(--green)!important;color:var(--surface)!important;font-weight:700}
+html[data-oil] .day.other .day-number{opacity:.6}
+html[data-oil] .calendar-weighted .calendar-today-icon{position:static;color:var(--green);margin-right:auto}
+html[data-oil] .calendar-weighted .calendar-lunar{margin:1px 2px 9px;font-size:12px;text-align:right;min-height:15px;line-height:1.3;color:var(--muted)}
+html[data-oil] .day-marker{position:static;font-size:11px;background:transparent;padding:0;margin-right:auto;max-width:70%;line-height:1.2;color:var(--warm)}
+html[data-oil] .day-marker.holiday{color:var(--red)}
+html[data-oil] .cal-task{display:flex;font-size:12px;line-height:1.6;border-radius:4px;background:transparent;padding:4px 3px;margin-bottom:3px;gap:5px;min-height:25px}
+html[data-oil] .cal-task span.task-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+html[data-oil] .cal-task.doing{background:var(--green-soft);color:var(--green)}
+html[data-oil] .cal-task.done{opacity:.7}
+html[data-oil] .cal-more{display:block;font-size:12px;padding:2px 4px;min-height:26px}
+html[data-oil] .day:not(.current-week) .day-heading{min-height:25px;height:25px}
+html[data-oil] .day:not(.current-week) .calendar-lunar{margin-bottom:2px}
+html[data-oil] .day:not(.current-week) .cal-task{font-size:11px;min-height:18px;line-height:18px;padding:0 2px;margin:0}
+html[data-oil] .day:not(.current-week) .task-name{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-oil] .oil-day-count{display:none}
+html[data-oil] .day-water-fill{height:3px!important;top:auto!important;bottom:0!important;left:0;right:auto!important;width:var(--water);border:0!important;border-radius:0!important;background:var(--green)!important;opacity:.5!important;box-shadow:none!important;transform:none!important}
+html[data-oil] .day-water-fill:before,html[data-oil] .day-water-fill:after,html[data-oil] .day:after{display:none!important}
+html[data-oil] .day-dots{display:none}
+html[data-oil] .oil-day-brief{min-width:0;overflow:auto;border-top:3px solid var(--green);padding:20px 0 12px;align-self:stretch;color:var(--ink)}
+html[data-oil] .oil-brief-heading{display:flex;gap:12px;align-items:center;position:relative;margin-bottom:22px}
+html[data-oil] .oil-brief-heading>div{min-width:0}
+html[data-oil] .oil-brief-heading h2{display:flex;align-items:center;gap:16px;margin:0;font-weight:500}
+html[data-oil] .oil-brief-date{flex:1;min-width:0}
+html[data-oil] .oil-brief-eyebrow{font-size:12px;color:var(--green);margin-bottom:10px;font-weight:600}
+html[data-oil] .oil-brief-heading strong{font-size:54px;font-weight:500;letter-spacing:-2px;line-height:1.05;font-variant-numeric:tabular-nums}
+html[data-oil] .oil-brief-heading small{font-size:12px;color:var(--green);display:block;margin-bottom:8px;font-weight:600}
+html[data-oil] .oil-brief-heading p,html[data-oil] .oil-brief-heading span{font-size:13px;line-height:1.6;color:var(--muted)}
+html[data-oil] .oil-brief-heading .icon-button{margin-left:auto;border:1px solid var(--line2);border-radius:50%;color:var(--green);background:var(--surface)}
+html[data-oil] .oil-brief-metrics{display:flex;flex-wrap:wrap;gap:8px 14px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6}
+html[data-oil] .oil-brief-metrics strong{color:var(--ink);font-size:15px;font-weight:600;margin-right:3px}
+html[data-oil] .oil-brief-list{display:grid}
+html[data-oil] .oil-brief-task{display:grid;grid-template-columns:1fr auto;gap:7px 8px;text-align:left;padding:17px 0;border-bottom:1px solid var(--line);border-radius:0;min-height:88px;position:relative;transition:background-color 120ms}
+html[data-oil] .oil-brief-task:hover{background:var(--green-soft)}
+html[data-oil] .oil-brief-time{grid-column:1;display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+html[data-oil] .oil-brief-title{grid-column:1/-1;grid-row:2;font-size:15px;font-weight:550;line-height:1.65;overflow-wrap:anywhere;color:var(--ink)}
+html[data-oil] .oil-brief-state{grid-column:2;grid-row:1;display:flex;gap:4px;align-items:center;font-size:11px;color:var(--muted);white-space:nowrap}
+html[data-oil] .oil-brief-task.doing .oil-brief-state{color:var(--green)}
+html[data-oil] .oil-brief-task.done .oil-brief-title{color:var(--muted)}
+html[data-oil] .oil-brief-more,html[data-oil] .oil-brief-add,html[data-oil] .oil-brief-all{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:42px;margin-top:16px;border:1px solid var(--line2);border-radius:7px;font-size:13px;color:var(--green);background:var(--surface)}
+html[data-oil] .oil-brief-empty{font-size:14px;line-height:1.8;color:var(--muted);padding:24px 0}
+html[data-oil] .universal-nav{height:70px;min-height:70px;background:var(--surface);border-top:1px solid var(--line);box-shadow:none;padding:7px max(20%,28px);gap:40px}
+html[data-oil] .universal-nav>button{font-size:12px;gap:5px;min-width:76px;min-height:48px}
+html[data-oil] .universal-nav>button.on{color:var(--green)}
+html[data-oil] .universal-nav .mobile-create{width:50px;min-width:50px;height:46px;min-height:46px;border-radius:13px;background:var(--green);color:var(--surface);box-shadow:none}
+html[data-oil] .records-intro{display:none}
+html[data-oil] .notes-mode .view-toolbar{display:none}
+html[data-oil] .records-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start;padding:5px 0 24px}
+html[data-oil] .record-card{min-height:0;padding:22px 24px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:none;transition:border-color 140ms,background-color 140ms}
+html[data-oil] .record-card:hover{border-color:var(--green)}
+html[data-oil] .record-card .note-card-header{margin-bottom:18px;font-size:12px;gap:7px}
+html[data-oil] .record-card .note-card-header .pill{font-size:11px;padding:3px 7px}
+html[data-oil] .record-preview{min-height:0;max-height:224px;font-size:15px;line-height:var(--md-line-height);color:var(--ink)}
+html[data-oil] .record-preview :is(h1,h2,h3,h4){font-size:19px;line-height:1.5;font-weight:650;letter-spacing:0}
+html[data-oil] .record-card .note-card-footer{border-top:0;margin-top:16px;padding-top:6px;font-size:12px}
+html[data-oil] .record-card .note-card-footer .icon-button{opacity:1;color:var(--muted);width:32px;height:32px}
+html[data-oil] .note-date{font-size:12px}
+html[data-oil] .board{gap:18px}
+html[data-oil] .board-col{background:var(--soft2);border:1px solid var(--line);box-shadow:none;border-radius:10px}
+html[data-oil] .board-heading{font-size:14px;min-height:52px;padding:14px 18px}
+html[data-oil] .board-card{padding:18px;border-radius:8px;box-shadow:none;border:1px solid var(--line);margin-bottom:12px;background:var(--surface)}
+html[data-oil] .task-title-button{font-size:16px;line-height:1.5;font-weight:600}
+html[data-oil] .card-description{font-size:13px;line-height:1.65;color:var(--muted)}
+html[data-oil] .card-plan,html[data-oil] .card-eyebrow,html[data-oil] .task-footer{font-size:12px}
+html[data-oil] .mini-action{font-size:12px;min-height:32px}
+html[data-oil] .note-count{font-size:15px}
+html[data-oil] .report-panel,html[data-oil] .report-metric{border-radius:10px;box-shadow:none}
+html[data-oil] .report-metric{min-height:140px}
+html[data-oil] .report-metric>span,html[data-oil] .report-metric p,html[data-oil] .report-panel-heading p,html[data-oil] .report-footnote,html[data-oil] .report-method{font-size:12px}
+html[data-oil] .report-eyebrow{font-size:12px;letter-spacing:0}
+html[data-oil] .report-heading h1{font-size:28px;letter-spacing:-.5px}
+html[data-oil] .report-periods button,html[data-oil] .report-evidence-tabs button{font-size:13px}
+html[data-oil] .report-task-main strong{font-size:15px}
+html[data-oil] .report-task-main>span{font-size:12px}
+html[data-oil] .report-draft-editor{font-size:15px;line-height:1.8;background:var(--surface)}
+html[data-oil] .dialog-backdrop{background:color-mix(in srgb,var(--ink) 34%,transparent);backdrop-filter:blur(5px)}
+html[data-oil] .day-timeline-backdrop{background:color-mix(in srgb,var(--ink) 40%,transparent)!important;backdrop-filter:blur(8px)!important}
+html[data-oil] .dialog.day-timeline-dialog{--day-flow-height:146px;width:min(1200px,calc(100vw - 64px))!important;height:calc(100dvh - 38px)!important;max-height:calc(100dvh - 38px)!important}
+html[data-oil] .day-coverflow{padding:0 20px 12px}
+html[data-oil] .day-flow-heading{height:27px;font-size:12px;color:var(--ink);text-shadow:none}
+html[data-oil] .day-flow-heading strong{font-size:13px;letter-spacing:0}
+html[data-oil] .day-flow-heading>span,html[data-oil] .day-flow-heading small{color:var(--ink);font-size:11px}
+html[data-oil] .day-flow-card{border-radius:10px;padding:12px 16px;box-shadow:0 6px 16px #162d2420;background:var(--surface);backdrop-filter:none}
+html[data-oil] .day-flow-card>strong{font-size:15px;line-height:1.5}
+html[data-oil] .day-flow-eyebrow,html[data-oil] .day-flow-eyebrow small,html[data-oil] .day-flow-footer,html[data-oil] .day-flow-footer button{font-size:11px}
+html[data-oil] .day-flow-card.is-front{border-color:var(--green);box-shadow:0 8px 20px #162d2426}
+html[data-oil] .day-workspace-surface{border:0;border-radius:14px 14px 0 0;box-shadow:0 -10px 60px #0002;background:var(--surface)}
+html[data-oil] .day-timeline-summary{min-height:62px;padding:12px 144px 12px 22px;background:var(--surface);border-bottom:1px solid var(--line)}
+html[data-oil] .day-date-lockup>strong{font-size:23px;letter-spacing:-.6px}
+html[data-oil] .day-date-lockup>span{font-size:13px}
+html[data-oil] .day-summary-metrics{gap:10px}
+html[data-oil] .day-summary-metrics span{font-size:12px;background:none;border:0;padding:0}
+html[data-oil] .day-timeline-dialog>.dialog-header{right:18px!important;top:calc(var(--day-flow-height) + 12px)!important;gap:6px}
+html[data-oil] .day-create-record,html[data-oil] .day-timeline-dialog>.dialog-header .icon-button{width:36px;height:36px;min-width:36px;border-radius:8px;box-shadow:none}
+html[data-oil] .day-timeline-columns{grid-template-columns:minmax(0,39%) minmax(0,61%)!important}
+html[data-oil] .day-timeline-columns.has-sub{grid-template-columns:minmax(0,48%) minmax(0,52%)!important}
+html[data-oil] .day-axis-group{background:var(--soft2)}
+html[data-oil] .day-timeline-pane>header{height:42px;min-height:42px;padding:0 14px;font-size:13px;background:var(--soft2);border-bottom:1px solid var(--line)}
+html[data-oil] .day-timeline-scroll{grid-template-columns:48px minmax(0,1fr);background:var(--surface)}
+html[data-oil] .day-hour-label{font-size:12px;color:var(--muted);padding-right:10px}
+html[data-oil] .day-grid-line{background:color-mix(in srgb,var(--line) 22%,transparent)}
+html[data-oil] .day-grid-line.hour{background:var(--line)}
+html[data-oil] .day-task-card{border-radius:6px;padding:7px 10px;box-shadow:none;background:var(--soft2);border-color:var(--line2);border-left:3px solid var(--green)}
+html[data-oil] .day-task-card.selected{background:var(--green-soft);box-shadow:0 0 0 1px var(--green);border-color:var(--green)}
+html[data-oil] .day-card-title{font-size:14px;line-height:1.4}
+html[data-oil] .day-card-time{font-size:12px;line-height:1.5}
+html[data-oil] .day-detail-panel:not(.empty){border-left:1px solid var(--line);background:var(--surface)}
+html[data-oil] .day-detail-identity{min-height:58px;padding:13px 22px;gap:12px;flex-wrap:nowrap}
+html[data-oil] .day-task-title{font-size:18px!important;line-height:1.5!important;white-space:normal;overflow:visible;flex-basis:auto;margin:0!important}
+html[data-oil] .day-detail-tabs{height:46px;min-height:46px;padding:5px 18px;gap:8px;background:var(--soft2);border-bottom:1px solid var(--line)}
+html[data-oil] .day-detail-tabs button{height:34px;font-size:14px;flex:0 1 160px;border-radius:6px}
+html[data-oil] .day-detail-tabs button.on{background:var(--surface);color:var(--green);box-shadow:0 1px 4px #00000008}
+html[data-oil] .day-detail-pane{padding:16px 22px 20px}
+html[data-oil] .day-control-label{min-height:24px;font-size:12px;gap:6px}
+html[data-oil] .day-control-label small{font-size:11px}
+html[data-oil] .day-status-rail{height:38px;margin:5px 0 13px;border-radius:7px}
+html[data-oil] .day-status-labels{font-size:12px}
+html[data-oil] .day-status-rail input::-webkit-slider-runnable-track,html[data-oil] .day-status-rail input::-webkit-slider-thumb{height:36px;border-radius:6px}
+html[data-oil] .day-content-properties{grid-template-columns:1.2fr 1fr;gap:18px}
+html[data-oil] .day-quadrant{height:80px;border-radius:7px}
+html[data-oil] .day-quadrant button{font-size:12px;padding-left:19px;line-height:1.4}
+html[data-oil] .day-tag-list{max-height:42px;gap:4px}
+html[data-oil] .day-tag-chip{font-size:12px;padding:3px 7px}
+html[data-oil] .day-tag-add input{height:32px;min-height:32px;font-size:13px}
+html[data-oil] .day-child-list{padding-top:9px;margin-top:10px}
+html[data-oil] .day-detail-section-title,html[data-oil] .day-detail-section-title button{font-size:12px;min-height:28px}
+html[data-oil] .day-detail-content>.save-state{font-size:11px;min-height:22px;max-width:none;line-height:1.5}
+html[data-oil] .day-live-editor-host{padding:12px 14px;min-height:280px;border:1px solid var(--line);border-radius:8px;box-shadow:none;background:var(--surface)}
+html[data-oil] .day-live-editor-host .live-md-surface{font-size:16px;line-height:var(--md-line-height);min-height:180px}
+html[data-oil] .live-md-toolbar{gap:3px}
+html[data-oil] .live-md-toolbar button{height:32px;min-height:32px;min-width:30px;padding:0 7px;border-radius:5px;font-size:12px}
+html[data-oil] .live-md-keyboard-hint{font-size:11px;line-height:1.6}
+html[data-oil] .day-logs article p{font-size:15px;line-height:1.7}
+html[data-oil] .day-logs time{font-size:12px}
+html[data-oil] .dialog{border-radius:12px;box-shadow:var(--shadow)}
+html[data-oil] .dialog-header h2{font-size:20px}
+html[data-oil] .dialog-body{font-size:14px}
+html[data-oil] .button{font-size:14px;border-radius:7px;min-height:40px}
+html[data-oil] .creation-controls-row .record-category-control,html[data-oil] .creation-controls-row .task-duration-control{border-radius:8px}
+html[data-oil] .creation-sheet .live-md-surface{font-size:16px}
+html[data-oil] .creation-sheet .record-category-options button{font-size:13px;min-height:36px}
+html[data-oil] .detail-title{font-size:26px;line-height:1.5}
+html[data-oil] .detail-scroll .md-preview{font-size:16px}
+html[data-oil] button:active:not(:disabled):not(.day-task-card):not(.day-flow-card){filter:brightness(.94)}
+@media(min-width:761px){
+ html[data-oil] .app{animation:oil-arrive 300ms cubic-bezier(.2,.8,.2,1) both}
+ html[data-oil] .notes-mode .workspace{padding-top:26px}
+}
+@keyframes oil-arrive{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(max-width:1100px) and (min-width:761px){
+ html[data-oil] .oil-calendar-layout{grid-template-columns:minmax(0,1fr) 268px;gap:18px}
+ html[data-oil] .topbar{padding:0 20px}
+ html[data-oil] .oil-lab-switch>span{display:none}
+ html[data-oil] .records-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html[data-oil] #recordSwitch{left:45%;max-width:47vw}
+}
+@media(max-width:760px){
+ html[data-oil] .topbar,html[data-oil] .notes-mode .topbar{height:108px;min-height:108px;padding:0 14px 48px;gap:8px;background:var(--surface)}
+ html[data-oil] .brand{font-size:20px;gap:7px}
+ html[data-oil] .brand-symbol{width:31px;height:31px;border-radius:9px}
+ html[data-oil] .brand small{display:inline;font-size:8px;letter-spacing:.7px;margin-left:5px}
+ html[data-oil] .top-actions{gap:0}
+ html[data-oil] .top-actions .icon-button{width:34px;height:38px}
+ html[data-oil] .sync-button{display:none}
+ html[data-oil] #viewSwitch,html[data-oil] .notes-mode #recordSwitch{position:absolute;left:14px;right:14px;top:auto;bottom:9px;width:auto;max-width:none;transform:none;height:36px;padding:2px}
+ html[data-oil] #viewSwitch button{width:33.333%;height:32px;min-height:32px;font-size:14px}
+ html[data-oil] #viewSwitch:before{left:2px;top:2px;height:32px;width:calc((100% - 4px)/3);transform:translateX(calc(var(--oil-tab-index,0)*100%))}
+ html[data-oil] #recordSwitch button{min-height:32px;padding:0 11px;font-size:13px}
+ html[data-oil] .workspace{padding:10px 12px 0}
+ html[data-oil] .view-toolbar{height:42px;min-height:42px;margin-bottom:10px;gap:4px}
+ html[data-oil] .period-controls{gap:4px}
+ html[data-oil] .month-nav{gap:2px}
+ html[data-oil] .month-nav .month-title{font-size:22px!important;margin:0 5px;letter-spacing:-.4px}
+ html[data-oil] .month-nav .month-title .year{font-size:12px;margin-right:5px;display:inline}
+ html[data-oil] .period-controls .icon-button.small{width:28px;height:32px;border:0;background:transparent}
+ html[data-oil] .compact-today{font-size:12px;min-height:32px;padding:3px 7px;margin-left:1px}
+ html[data-oil] .toolbar-trailing .text-button{font-size:12px;min-height:32px;padding:4px 3px;gap:3px}
+ html[data-oil] .toolbar-trailing .text-button svg{width:13px}
+ html[data-oil] .main-view{overflow:auto!important;scrollbar-gutter:auto;overscroll-behavior:contain;padding-bottom:24px}
+ html[data-oil] .oil-calendar-layout{display:flex!important;flex-direction:column;gap:16px;height:auto;min-height:0;overflow:visible}
+ html[data-oil] .oil-calendar-layout .calendar-main{height:auto!important;flex:none!important;border-radius:10px}
+ html[data-oil] .weekdays{font-size:11px}
+ html[data-oil] .weekdays span{padding:9px 0}
+ html[data-oil] .month-grid{flex:none!important;height:auto!important;grid-template-rows:var(--oil-calendar-mobile-rows)!important;grid-auto-rows:52px!important;min-height:0!important}
+ html[data-oil] .calendar-weighted .day{padding:3px 2px!important}
+ html[data-oil] .day-heading{height:25px;min-height:25px;justify-content:center!important;gap:0;margin:0 0 1px}
+ html[data-oil] .day-number{width:25px;height:25px;font-size:14px;margin:auto!important;border-radius:6px}
+ html[data-oil] .calendar-weighted .day-marker{position:absolute;left:1px;top:1px;font-size:10px;padding:0;margin:0;color:var(--warm)}
+ html[data-oil] .calendar-weighted .calendar-marker-full{display:none}
+ html[data-oil] .calendar-weighted .calendar-marker-compact{display:inline}
+ html[data-oil] .calendar-weighted .calendar-today-icon{position:absolute;left:2px;bottom:auto;top:7px;margin:0}
+ html[data-oil] .calendar-weighted .calendar-today-icon svg{width:10px;height:10px}
+ html[data-oil] .calendar-weighted .calendar-lunar{font-size:11px;line-height:1.3;text-align:center;margin:0 0 4px;min-height:14px}
+ html[data-oil] .calendar-weighted .calendar-holiday-caption{display:none}
+ html[data-oil] .calendar-weighted .cal-task{display:none}
+ html[data-oil] .calendar-weighted .current-week .cal-task{display:flex;min-height:18px;height:18px;padding:0 1px;font-size:12px;line-height:18px;gap:0;margin-bottom:1px;border-radius:2px}
+ html[data-oil] .calendar-weighted .current-week .cal-task:nth-of-type(n+3){display:none}
+ html[data-oil] .calendar-weighted .current-week .cal-task span.task-name{display:block!important;white-space:nowrap!important;-webkit-line-clamp:unset;overflow-wrap:normal;overflow:hidden;text-overflow:ellipsis}
+ html[data-oil] .calendar-weighted .cal-task .status-dot{display:none}
+ html[data-oil] .calendar-weighted .cal-more{display:none}
+ html[data-oil] .oil-day-count{display:block;text-align:center;font-size:10px;line-height:14px;color:var(--green);white-space:nowrap;margin-top:3px}
+ html[data-oil] .day:not(.current-week) .oil-day-count{position:absolute;width:4px;height:4px;bottom:2px;left:calc(50% - 2px);border-radius:50%;background:var(--green);font-size:0;margin:0}
+ html[data-oil] .oil-day-brief{border-top:2px solid var(--green);padding:14px 4px 10px;overflow:visible;flex:none}
+ html[data-oil] .oil-brief-heading{margin-bottom:10px;gap:12px;min-height:48px}
+ html[data-oil] .oil-brief-date{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:20px 27px;column-gap:12px}
+ html[data-oil] .oil-brief-eyebrow{grid-column:2;grid-row:1;margin:0;line-height:20px}
+ html[data-oil] .oil-brief-heading h2{display:contents}
+ html[data-oil] .oil-brief-heading h2>strong{grid-column:1;grid-row:1/3;align-self:center}
+ html[data-oil] .oil-brief-heading h2>span{grid-column:2;grid-row:2;display:flex;align-items:center;gap:8px}
+ html[data-oil] .oil-brief-heading h2>span>small{margin:0;display:inline;color:var(--muted);font-weight:400}
+ html[data-oil] .oil-brief-heading strong{font-size:40px;letter-spacing:-1px}
+ html[data-oil] .oil-brief-heading small{font-size:12px;margin-bottom:4px}
+ html[data-oil] .oil-brief-heading p,html[data-oil] .oil-brief-heading span{font-size:12px}
+ html[data-oil] .oil-brief-metrics{padding:8px 0;gap:9px;font-size:12px;margin-bottom:3px}
+ html[data-oil] .oil-brief-metrics strong{font-size:14px}
+ html[data-oil] .oil-brief-task{min-height:78px;padding:14px 0;gap:6px}
+ html[data-oil] .oil-brief-title{font-size:15px;line-height:1.6}
+ html[data-oil] .oil-lab-switch{position:absolute;right:14px;top:14px;bottom:auto;margin:0;border:0;background:var(--soft2);padding:2px;box-shadow:none;z-index:1}
+ html[data-oil] .oil-lab-switch>a{font-size:10px;min-height:26px;padding:0 6px}
+ html[data-oil] .oil-lab-switch>a[aria-current]{display:none}
+ html[data-oil] .top-actions{margin-left:auto!important;margin-right:60px}
+ html[data-oil] .universal-nav{height:68px;min-height:68px;padding:6px 30px calc(6px + env(safe-area-inset-bottom));gap:18px}
+ html[data-oil] .universal-nav>button{font-size:11px;min-width:60px;min-height:46px;gap:4px}
+ html[data-oil] .universal-nav .mobile-create{width:48px;min-width:48px;height:44px;min-height:44px;border-radius:12px}
+ html[data-oil] .records-grid{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:7px}
+ html[data-oil] .record-card{padding:18px 20px;border-radius:9px}
+ html[data-oil] .record-preview{font-size:15px;max-height:210px}
+ html[data-oil] .record-card .note-card-header{margin-bottom:13px}
+ html[data-oil] .record-preview :is(h1,h2,h3,h4){font-size:18px}
+ html[data-oil] .board-col{width:calc(100vw - 53px);min-width:calc(100vw - 53px)}
+ html[data-oil] .board-card .task-title-button{font-size:16px}
+ html[data-oil] .report-panel,html[data-oil] .report-metric{padding:16px;border-radius:9px}
+ html[data-oil] .report-metrics{gap:10px}
+ html[data-oil] .report-metric>strong{font-size:30px}
+ html[data-oil] .report-periods button{font-size:12px;padding:7px 3px}
+ html[data-oil] .reports-workspace{padding-top:6px}
+ html[data-oil] .dialog-backdrop:has(.day-timeline-dialog){padding:8px 0 0;align-items:flex-end}
+ html[data-oil] .dialog.day-timeline-dialog{--day-flow-height:122px;width:100%!important;height:calc(100dvh - 18px)!important;max-height:calc(100dvh - 18px)!important;margin:0}
+ html[data-oil] .day-coverflow{padding:0 10px 5px;height:122px;flex-basis:122px}
+ html[data-oil] .day-flow-heading{height:23px;gap:8px}
+ html[data-oil] .day-flow-heading strong{font-size:12px}
+ html[data-oil] .day-flow-heading small{font-size:10px;margin-left:4px}
+ html[data-oil] .day-flow-stage{height:97px}
+ html[data-oil] .day-flow-card{height:89px;width:236px;margin-left:-118px;padding:8px 12px;gap:4px;border-radius:9px}
+ html[data-oil] .day-flow-card>strong{font-size:14px;line-height:1.4}
+ html[data-oil] .day-flow-eyebrow,html[data-oil] .day-flow-eyebrow small,html[data-oil] .day-flow-footer,html[data-oil] .day-flow-footer button{font-size:10px}
+ html[data-oil] .day-workspace-surface{border-radius:13px 13px 0 0}
+ html[data-oil] .day-timeline-dialog>.dialog-header{top:calc(var(--day-flow-height) + 8px)!important;right:9px!important;gap:4px}
+ html[data-oil] .day-create-record,html[data-oil] .day-timeline-dialog>.dialog-header .icon-button{width:32px;height:34px;min-width:32px;border-radius:7px}
+ html[data-oil] .day-timeline-summary{min-height:54px;padding:9px 116px 9px 14px;gap:7px}
+ html[data-oil] .day-date-lockup{gap:6px;align-items:baseline}
+ html[data-oil] .day-date-lockup>strong{font-size:19px;white-space:nowrap}
+ html[data-oil] .day-date-lockup>span{font-size:11px;white-space:nowrap}
+ html[data-oil] .day-date-lockup small{display:none}
+ html[data-oil] .day-summary-metrics{display:none!important}
+ html[data-oil] .day-timeline-columns,html[data-oil] .day-timeline-columns.has-sub{display:block!important;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;flex:1!important;min-height:0;scrollbar-gutter:stable;scroll-padding-top:0}
+ html[data-oil] .day-axis-group{height:clamp(180px,30dvh,260px);min-height:180px;flex:none;overflow:hidden;border-bottom:1px solid var(--line)}
+ html[data-oil] .day-axis-columns{height:100%;min-height:0}
+ html[data-oil] .day-timeline-pane>header{height:34px;min-height:34px;padding:0 14px;font-size:12px}
+ html[data-oil] .day-timeline-scroll{grid-template-columns:44px minmax(0,1fr);min-height:0}
+ html[data-oil] .day-hour-label{font-size:11px;padding-right:8px}
+ html[data-oil] .day-task-card{padding:5px 9px}
+ html[data-oil] .day-card-title{font-size:14px}
+ html[data-oil] .day-card-time{font-size:11px}
+ html[data-oil] .day-detail-panel{min-height:max(540px,calc(100dvh - 194px));overflow:visible;display:flex;flex-direction:column;scroll-margin-top:0}
+ html[data-oil] .day-detail-panel:not(.empty){border-left:0}
+ html[data-oil] .day-detail-panel.empty{min-height:210px}
+ html[data-oil] .day-detail-identity{min-height:58px;padding:13px 15px;gap:9px;flex-wrap:nowrap}
+ html[data-oil] .day-task-title{font-size:17px!important;line-height:1.5!important;flex-basis:auto}
+ html[data-oil] .day-delete-task{width:32px;height:32px;min-width:32px}
+ html[data-oil] .day-detail-tabs{height:44px;min-height:44px;padding:5px 13px}
+ html[data-oil] .day-detail-tabs button{font-size:13px;height:34px;flex:0 1 150px}
+ html[data-oil] .day-detail-pane,html[data-oil] .day-detail-pane[data-day-pane="content"]{padding:14px 15px 22px;overflow:visible;min-height:0;flex:1;scrollbar-gutter:auto}
+ html[data-oil] .day-detail-content{min-height:0;overflow:visible}
+ html[data-oil] .day-content-properties{grid-template-columns:1fr;gap:10px}
+ html[data-oil] .day-control-label{font-size:11px;min-height:24px}
+ html[data-oil] .day-control-label small{display:none}
+ html[data-oil] .day-status-labels{font-size:11px}
+ html[data-oil] .day-status-labels svg{width:11px;height:11px}
+ html[data-oil] .day-quadrant{height:80px}
+ html[data-oil] .day-quadrant button{font-size:12px;padding-left:18px;line-height:1.5;display:flex;align-items:center;gap:4px}
+ html[data-oil] .day-quadrant button svg{display:inline;width:12px;height:12px}
+ html[data-oil] .day-tags-group{display:flex;align-items:center;gap:8px}
+ html[data-oil] .day-tags-group>.day-control-label{flex:none}
+ html[data-oil] .day-tag-editor{display:flex;align-items:center;gap:6px;flex:1;min-width:0}
+ html[data-oil] .day-tag-add{flex:1;min-width:0}
+ html[data-oil] .day-tag-add input{font-size:12px;min-height:32px;height:32px}
+ html[data-oil] .day-tag-chip{font-size:11px;padding:3px 6px}
+ html[data-oil] .day-child-chips{max-height:36px}
+ html[data-oil] .day-child-chips>button{font-size:12px;min-height:30px}
+ html[data-oil] .day-live-editor-host{padding:10px 10px;min-height:320px;flex:none;overflow:visible}
+ html[data-oil] .day-live-editor-host .live-md-toolbar{max-height:none;overflow:visible;margin-bottom:8px}
+ html[data-oil] .day-live-editor-host .live-md-surface{min-height:230px;max-height:none;overflow:visible;font-size:16px}
+ html[data-oil] .live-md-help{display:none}
+ html[data-oil] .day-detail-empty{padding:30px 24px}
+ html[data-oil] .day-detail-empty strong{font-size:16px}
+ html[data-oil] .day-detail-empty p{font-size:13px;line-height:1.7}
+ html[data-oil] .day-worklog-compose textarea{font-size:15px;min-height:90px}
+ html[data-oil] .day-worklog-compose button{font-size:13px;min-height:40px}
+ html[data-oil] .creation-sheet .record-category-options button{font-size:11px}
+ html[data-oil] .dialog-body{padding-left:18px;padding-right:18px}
+ html[data-oil] .hint{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-oil] .app{animation:none}
+ html[data-oil] #viewSwitch:before,html[data-oil] button,html[data-oil] .day{transition:none!important}
+}
